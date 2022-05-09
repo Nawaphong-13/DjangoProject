@@ -53,6 +53,9 @@ class Book(models.Model):
     show_image.allow_tags = True
     show_image.short_description = 'Image'
 
+    def get_comment_count(self):
+        return self.bookcomment_set.count()
+
 
     def __str__(self):
         return self.name
