@@ -3,5 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('<slug:slug>/', views.detail, name='detail'),
+    path('detail/<slug:slug>/', views.detail, name='detail'),
+    re_path(r'add/$', views.book_add, name='book_add'),
+
 ]

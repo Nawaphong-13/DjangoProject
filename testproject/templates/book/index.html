@@ -5,6 +5,8 @@
 {% block title %}Book Page{% endblock %}
 
 {% block content %}
+<h1>Book List</h1>
+<a href="{% url 'book:book_add' %}" class="btn btn-warning mb-4">Add new book</a>
 <div class="row">
     <div class="col-lg-2">
         <div class="list-group">
@@ -15,8 +17,6 @@
         </div>
     </div>
     <div class="col-lg-10">
-        <h1>Book</h1>
-
         <div class="row">
             {% for b in books %}
             <div class="col-lg-3">
