@@ -19,8 +19,23 @@
             <a class="p-2 text-dark" href="{% url 'myapp:index' %}">Home</a>
             <a class="p-2 text-dark" href="{% url 'book:index' %}">Book</a>
         </nav>
-        <a class="btn btn-outline-primary mx-2" href="">Sign up</a>
-        <a class="btn btn-info mx-2" href="">Log in</a>
+
+        {% if request.session.cart_qty %}
+        <a class="btn btn-secondary mx-2" href="{% url 'book:cart_list' %}"><i class="fa fa-shopping-cart"></i>  {{ request.session.cart_qty }}</a>
+        {% endif %}
+
+        {% if not user.is_authenticated %}
+        <a class="btn btn-outline-primary mx-2" href="{% url 'account:signup' %}">Sign up</a>
+        <a class="btn btn-info mx-2" href="{% url 'account:login' %}">Log in</a>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+          <span>Hello, {{ request.user.username }}</span>
+          <form method="post" action="{% url 'account:logout' %}" novalidate>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger mx-2">Log out</button>
+          </form>
+        {% endif %}
 
     </div>
 

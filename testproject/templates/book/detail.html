@@ -14,7 +14,7 @@
         <h1>{{ book.name }}</h1>
         <div>Category : {{ book.category }}</div>
         <div>Price : {{ book.price|floatformat:2|intcomma }}</div>
-        <a href="" class="btn btn-success mt-5">Add to Cart</a>
+        <a href="{% url 'book:cart_add' slug=book.slug %}" class="btn btn-success mt-5">Add to Cart</a>
     </div>
 </div>
 
