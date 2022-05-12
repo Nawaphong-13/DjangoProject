@@ -4,10 +4,10 @@ from django.contrib.auth.decorators import login_required
 
 
 urlpatterns = [
-    path('', views.BookListView.as_view(), name='index'),
-    # path('', views.index, name='index'),
-    path('detail/<slug:slug>/', views.BookDetailView.as_view(), name='detail'),
-    # path('detail/<slug:slug>/', views.detail, name='detail'),
+    # path('', views.BookListView.as_view(), name='index'),
+    path('', views.index, name='index'),
+    # path('detail/<slug:slug>/', views.BookDetailView.as_view(), name='detail'),
+    path('detail/<slug:slug>/', views.detail, name='detail'),
     re_path(r'add/$', views.book_add, name='book_add'),
 
     re_path(r'^cart/list/$', views.cart_list, name='cart_list'),

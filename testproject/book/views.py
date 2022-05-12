@@ -4,6 +4,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from slugify import slugify
 from .forms import BookForm
+from article.models import Article
 
 
 def index(request):
@@ -32,8 +33,14 @@ def index(request):
 
 def detail(request, slug):
     book = get_object_or_404(Book, slug=slug)
+
+    article = None
+    if Article.objects.filter(book=book).exists():
+        article = get_object_or_404(Article, book=book)
+  
     return render(request, 'book/detail.html', {
         'book': book,
+        'article':article,
     })
 
 
@@ -59,28 +66,29 @@ def book_add(request):
 from django.views.generic import ListView, DetailView
 
 
-class BookListView(ListView):
-    model = Book
-    template_name = 'book/index.html'
-    context_object_name = 'books'
-    paginate_by = 5
+# class BookListView(ListView):
+#     model = Book
+#     template_name = 'book/index.html'
+#     context_object_name = 'books'
+#     paginate_by = 5
 
-    def get_queryset(self):
-        return Book.objects.filter(published=True)
+#     def get_queryset(self):
+#         return Book.objects.filter(published=True)
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(BookListView, self).get_context_data(*args, **kwargs)
-        context.update({
-            'categories': Category.objects.all(),
-        })
-        return context
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(BookListView, self).get_context_data(*args, **kwargs)
+#         context.update({
+#             'categories': Category.objects.all(),
+#         })
+#         return context
 
 
-class BookDetailView(DetailView):
-    model = Book
-    template_name = 'book/detail.html'
-    slug_url_kwarg = 'slug'
+# class BookDetailView(DetailView):
+#     model = Book
+#     template_name = 'book/detail.html'
+#     slug_url_kwarg = 'slug'
 
+    
 
 
 def cart_add(request, slug):
